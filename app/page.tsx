@@ -32,6 +32,16 @@ export default function LandingPage() {
             workbench for your next big move.
           </p>
 
+          {/* Loom walkthrough */}
+          <div className="relative w-full max-w-3xl mx-auto mb-12 rounded-xl overflow-hidden border border-[#222222]" style={{ paddingBottom: '56.25%', height: 0 }}>
+            <iframe
+              src="https://www.loom.com/embed/78991d02ed934b98916c7c7d9d98c9b9"
+              frameBorder="0"
+              allowFullScreen
+              style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+            />
+          </div>
+
           {/* Try Demo */}
           <div className="mb-6">
             <Link
