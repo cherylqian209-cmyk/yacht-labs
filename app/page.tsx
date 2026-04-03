@@ -32,6 +32,18 @@ export default function LandingPage() {
             workbench for your next big move.
           </p>
 
+          {/* Try Demo */}
+          <div className="mb-6">
+            <Link
+              href="/demo"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-[#8b5cf6] text-white font-bold text-sm uppercase tracking-widest rounded-lg hover:bg-[#7c3aed] transition-colors"
+              style={{ fontFamily: 'var(--font-space-mono), monospace' }}
+            >
+              Try Demo →
+            </Link>
+            <p className="text-[#555555] text-xs mt-2">No signup required</p>
+          </div>
+
           {/* Buttons */}
           <div className="flex flex-col items-center gap-4 max-w-xs mx-auto">
             {/* Google button */}
