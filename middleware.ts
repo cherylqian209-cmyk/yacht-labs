@@ -2,12 +2,22 @@ import { type NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/utils/supabase/middleware'
 
 export async function middleware(request: NextRequest) {
-  const { supabase, supabaseResponse } = createClient(request)
+  // Skip if Supabase env vars are not configured
+  if (
+    !process.env.NEXT_PUBLIC_SUPABASE_URL ||
+    !process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY
+  ) {
+    return NextResponse.next()
+  }
 
-  // Refresh the session so it doesn't expire mid-use
-  await supabase.auth.getUser()
-
-  return supabaseResponse
+  try {
+    const { supabase, supabaseResponse } = createClient(request)
+    // Refresh the session so it doesn't expire mid-use
+    await supabase.auth.getUser()
+    return supabaseResponse
+  } catch {
+    return NextResponse.next()
+  }
 }
 
 export const config = {
