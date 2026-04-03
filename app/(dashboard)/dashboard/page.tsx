@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import { Layers, Zap, Headphones, RefreshCw, FileText, Check } from 'lucide-react'
+import { Layers, Zap, Headphones, RefreshCw, FileText } from 'lucide-react'
+import StripePricing from '@/components/StripePricing'
 
 const tools = [
   {
@@ -194,7 +195,7 @@ export default function DashboardPage() {
           className="text-xs text-[#555555] uppercase tracking-widest mb-2"
           style={{ fontFamily: 'var(--font-space-mono), monospace' }}
         >
-          PRICING
+          THE LAB ACCESS
         </p>
         <h2
           className="text-2xl font-bold text-white uppercase tracking-widest mb-8"
@@ -202,68 +203,7 @@ export default function DashboardPage() {
         >
           CHOOSE YOUR VELOCITY
         </h2>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl">
-          {pricingTiers.map((tier) => (
-            <div
-              key={tier.name}
-              className={`rounded-xl p-6 flex flex-col gap-4 ${
-                tier.highlight
-                  ? 'bg-[#111111] border-2 border-[#8b5cf6]'
-                  : 'bg-[#111111] border border-[#222222]'
-              }`}
-            >
-              {tier.highlight && (
-                <span
-                  className="text-xs font-bold text-[#8b5cf6] uppercase tracking-widest"
-                  style={{ fontFamily: 'var(--font-space-mono), monospace' }}
-                >
-                  ✦ MOST POPULAR
-                </span>
-              )}
-              <div>
-                <h3
-                  className="text-xs font-bold text-[#888888] uppercase tracking-widest mb-1"
-                  style={{ fontFamily: 'var(--font-space-mono), monospace' }}
-                >
-                  {tier.name}
-                </h3>
-                <div className="flex items-baseline gap-1">
-                  <span
-                    className="text-4xl font-bold text-white"
-                    style={{ fontFamily: 'var(--font-space-mono), monospace' }}
-                  >
-                    {tier.price}
-                  </span>
-                  {tier.period && (
-                    <span className="text-[#555555] text-sm">{tier.period}</span>
-                  )}
-                </div>
-              </div>
-
-              <ul className="space-y-2 flex-1">
-                {tier.features.map((f) => (
-                  <li key={f} className="flex items-center gap-2 text-sm text-[#888888]">
-                    <Check size={14} className="text-[#22c55e] flex-shrink-0" />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-
-              <Link
-                href={tier.href}
-                className={`w-full text-center text-xs font-bold uppercase tracking-widest py-3 px-4 rounded-lg transition-colors ${
-                  tier.highlight
-                    ? 'bg-[#8b5cf6] text-white hover:bg-[#7c3aed]'
-                    : 'bg-[#1a1a1a] text-white border border-[#333333] hover:bg-[#222222]'
-                }`}
-                style={{ fontFamily: 'var(--font-space-mono), monospace' }}
-              >
-                {tier.cta}
-              </Link>
-            </div>
-          ))}
-        </div>
+        <StripePricing />
       </section>
 
       {/* Footer */}
