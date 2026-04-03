@@ -1,9 +1,9 @@
-import Anthropic from '@anthropic-ai/sdk'
+import OpenAI from 'openai'
 
 const getClient = () => {
-  const apiKey = process.env.ANTHROPIC_API_KEY
+  const apiKey = process.env.OPENAI_API_KEY
   if (!apiKey) return null
-  return new Anthropic({ apiKey })
+  return new OpenAI({ apiKey })
 }
 
 function extractJSON(text: string): string {
@@ -17,13 +17,12 @@ function extractJSON(text: string): string {
 async function ask(prompt: string): Promise<string> {
   const client = getClient()
   if (!client) return ''
-  const message = await client.messages.create({
-    model: 'claude-sonnet-4-6',
-    max_tokens: 2048,
+  const completion = await client.chat.completions.create({
+    model: 'gpt-4o-mini',
     messages: [{ role: 'user', content: prompt }],
+    max_tokens: 2048,
   })
-  const block = message.content[0]
-  return block.type === 'text' ? block.text : ''
+  return completion.choices[0]?.message?.content ?? ''
 }
 
 export async function analyzeIdea(idea: string) {
@@ -131,7 +130,7 @@ export async function generateCode(task: string, context: string) {
   if (!client) {
     return {
       code: `// Generated code for: ${task}\n\nexport function placeholder() {\n  // TODO: Implement\n  console.log('${task}')\n}`,
-      explanation: `Placeholder for "${task}". Add ANTHROPIC_API_KEY to enable AI code generation.`,
+      explanation: `Placeholder for "${task}". Add OPENAI_API_KEY to enable AI code generation.`,
       language: 'typescript',
     }
   }
