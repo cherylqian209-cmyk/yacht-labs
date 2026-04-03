@@ -31,16 +31,16 @@ create table if not exists daily_ships (
 
 alter table daily_ships enable row level security;
 
-create policy if not exists "Users see their own ships"
+create policy "Users see their own ships"
   on daily_ships for select
   using (auth.uid() = user_id);
 
-create policy if not exists "Users create their own ships"
+create policy "Users create their own ships"
   on daily_ships for insert
   with check (auth.uid() = user_id);
 
 -- 4. Allow public reads of daily_ships for public projects
-create policy if not exists "Public ships visible for public projects"
+create policy "Public ships visible for public projects"
   on daily_ships for select
   using (
     project_id in (
