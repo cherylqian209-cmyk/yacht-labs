@@ -1,0 +1,140 @@
+<div style="background: var(--color-background-secondary); border-radius: var(--border-radius-lg); padding: 1.5rem;">
+  
+  <div style="margin-bottom: 1.5rem;">
+    <h2 style="margin: 0 0 4px; font-size: 18px; font-weight: 500;">Listen: Product performance</h2>
+    <p style="margin: 0; font-size: 13px; color: var(--color-text-secondary);">AI-powered insights from production metrics • Deployed 3 days ago</p>
+  </div>
+
+  <!-- Key Metrics -->
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 1rem;">
+    
+    <div style="background: var(--color-background-primary); border-radius: var(--border-radius-md); padding: 1rem; border: 0.5px solid var(--color-border-tertiary);">
+      <p style="margin: 0 0 6px; font-size: 13px; color: var(--color-text-secondary);">Active users (24h)</p>
+      <p style="margin: 0; font-size: 24px; font-weight: 500;">127</p>
+      <p style="margin: 4px 0 0; font-size: 12px; color: var(--color-text-success);">+23% from yesterday</p>
+    </div>
+
+    <div style="background: var(--color-background-primary); border-radius: var(--border-radius-md); padding: 1rem; border: 0.5px solid var(--color-border-tertiary);">
+      <p style="margin: 0 0 6px; font-size: 13px; color: var(--color-text-secondary);">Page load time</p>
+      <p style="margin: 0; font-size: 24px; font-weight: 500;">1.2s</p>
+      <p style="margin: 4px 0 0; font-size: 12px; color: var(--color-text-success);">p95 • Excellent</p>
+    </div>
+
+    <div style="background: var(--color-background-primary); border-radius: var(--border-radius-md); padding: 1rem; border: 0.5px solid var(--color-border-tertiary);">
+      <p style="margin: 0 0 6px; font-size: 13px; color: var(--color-text-secondary);">Error rate</p>
+      <p style="margin: 0; font-size: 24px; font-weight: 500;">0.3%</p>
+      <p style="margin: 4px 0 0; font-size: 12px; color: var(--color-text-success);">5 errors / 1,847 requests</p>
+    </div>
+
+    <div style="background: var(--color-background-primary); border-radius: var(--border-radius-md); padding: 1rem; border: 0.5px solid var(--color-border-tertiary);">
+      <p style="margin: 0 0 6px; font-size: 13px; color: var(--color-text-secondary);">User satisfaction</p>
+      <p style="margin: 0; font-size: 24px; font-weight: 500;">4.2</p>
+      <p style="margin: 4px 0 0; font-size: 12px; color: var(--color-text-secondary);">23 ratings this week</p>
+    </div>
+
+  </div>
+
+  <!-- AI Insights -->
+  <div style="background: var(--color-background-primary); border: 2px solid var(--color-border-purple); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; margin-bottom: 1rem;">
+    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M10 2L12 8L18 9L14 13L15 19L10 16L5 19L6 13L2 9L8 8L10 2Z" fill="var(--color-text-purple)"/>
+      </svg>
+      <h3 style="margin: 0; font-size: 15px; font-weight: 500;">AI insights from user behavior</h3>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      
+      <!-- Insight 1: High Impact -->
+      <div style="padding: 12px; background: var(--color-background-warning); border: 0.5px solid var(--color-border-warning); border-radius: var(--border-radius-md);">
+        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 6px;">
+          <p style="margin: 0; font-size: 14px; font-weight: 500; color: var(--color-text-warning);">⚠️ 34% drop-off at data connection step</p>
+          <span style="font-size: 11px; padding: 3px 8px; background: var(--color-background-primary); color: var(--color-text-warning); border-radius: var(--border-radius-md); font-weight: 500;">High impact</span>
+        </div>
+        <p style="margin: 0 0 8px; font-size: 13px; color: var(--color-text-warning); opacity: 0.9;">Users abandon when asked to connect their analytics. Friction point detected after OAuth redirect.</p>
+        <button onclick="sendPrompt('Suggest fixes for data connection drop-off')" style="padding: 6px 12px; font-size: 12px;">Get recommendations ↗</button>
+      </div>
+
+      <!-- Insight 2: Positive -->
+      <div style="padding: 12px; background: var(--color-background-success); border: 0.5px solid var(--color-border-success); border-radius: var(--border-radius-md);">
+        <p style="margin: 0 0 4px; font-size: 14px; font-weight: 500; color: var(--color-text-success);">✓ Dashboard retention is strong</p>
+        <p style="margin: 0; font-size: 13px; color: var(--color-text-success); opacity: 0.9;">Users who complete setup return 3.2x per week on average. Chart interaction time: 4m 17s.</p>
+      </div>
+
+      <!-- Insight 3: Opportunity -->
+      <div style="padding: 12px; background: var(--color-background-info); border: 0.5px solid var(--color-border-info); border-radius: var(--border-radius-md);">
+        <p style="margin: 0 0 4px; font-size: 14px; font-weight: 500; color: var(--color-text-info);">💡 Feature request pattern detected</p>
+        <p style="margin: 0 0 8px; font-size: 13px; color: var(--color-text-info); opacity: 0.9;">18 users tried to export chart data (no export button exists). Quick win opportunity.</p>
+        <button onclick="sendPrompt('Add export functionality to charts')" style="padding: 6px 12px; font-size: 12px;">Add to backlog ↗</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- User Feedback -->
+  <div style="background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; margin-bottom: 1rem;">
+    <h3 style="margin: 0 0 12px; font-size: 15px; font-weight: 500;">Recent user feedback</h3>
+    
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      
+      <div style="padding: 10px; background: var(--color-background-secondary); border-radius: var(--border-radius-md); border-left: 3px solid var(--color-border-success);">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+          <div style="width: 28px; height: 28px; border-radius: 50%; background: var(--color-background-teal); display: flex; align-items: center; justify-content: center; font-weight: 500; font-size: 12px; color: var(--color-text-teal);">JD</div>
+          <div>
+            <p style="margin: 0; font-size: 13px; font-weight: 500;">Jane D.</p>
+            <p style="margin: 0; font-size: 11px; color: var(--color-text-secondary);">2 hours ago • Rating: 5/5</p>
+          </div>
+        </div>
+        <p style="margin: 0; font-size: 13px; color: var(--color-text-secondary); line-height: 1.5;">"Finally a dashboard that doesn't take 3 hours to set up. Charts loaded instantly with my Stripe data."</p>
+      </div>
+
+      <div style="padding: 10px; background: var(--color-background-secondary); border-radius: var(--border-radius-md); border-left: 3px solid var(--color-border-warning);">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+          <div style="width: 28px; height: 28px; border-radius: 50%; background: var(--color-background-coral); display: flex; align-items: center; justify-content: center; font-weight: 500; font-size: 12px; color: var(--color-text-coral);">MK</div>
+          <div>
+            <p style="margin: 0; font-size: 13px; font-weight: 500;">Mike K.</p>
+            <p style="margin: 0; font-size: 11px; color: var(--color-text-secondary);">5 hours ago • Rating: 3/5</p>
+          </div>
+        </div>
+        <p style="margin: 0; font-size: 13px; color: var(--color-text-secondary); line-height: 1.5;">"Good start but struggled with PostHog connection. Took me 3 tries to get it working."</p>
+      </div>
+
+      <div style="padding: 10px; background: var(--color-background-secondary); border-radius: var(--border-radius-md); border-left: 3px solid var(--color-border-success);">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+          <div style="width: 28px; height: 28px; border-radius: 50%; background: var(--color-background-blue); display: flex; align-items: center; justify-content: center; font-weight: 500; font-size: 12px; color: var(--color-text-blue);">AL</div>
+          <div>
+            <p style="margin: 0; font-size: 13px; font-weight: 500;">Alex L.</p>
+            <p style="margin: 0; font-size: 11px; color: var(--color-text-secondary);">Yesterday • Rating: 5/5</p>
+          </div>
+        </div>
+        <p style="margin: 0; font-size: 13px; color: var(--color-text-secondary); line-height: 1.5;">"Love the simplicity. Would pay for team features if you add collaboration."</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Repeat: Next Iteration -->
+  <div style="background: var(--color-background-primary); border: 2px solid var(--color-border-info); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem;">
+    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M17 3L19 5L17 7M19 5H8C5.79086 5 4 6.79086 4 9C4 11.2091 5.79086 13 8 13H14" stroke="var(--color-text-info)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <h3 style="margin: 0; font-size: 15px; font-weight: 500;">Repeat: Prioritized improvements</h3>
+    </div>
+
+    <div style="padding: 12px; background: var(--color-background-info); border-radius: var(--border-radius-md); margin-bottom: 12px;">
+      <p style="margin: 0 0 8px; font-size: 13px; font-weight: 500; color: var(--color-text-info);">AI-generated priority order (based on impact × effort)</p>
+      <div style="font-size: 13px; color: var(--color-text-info); line-height: 1.7; opacity: 0.95;">
+        1. <strong>Fix OAuth connection flow</strong> (High impact, 2 hrs) → Reduces 34% drop-off<br>
+        2. <strong>Add chart export button</strong> (Medium impact, 1 hr) → Requested by 18 users<br>
+        3. <strong>Improve data connection UX</strong> (High impact, 4 hrs) → Better onboarding<br>
+        4. <strong>Team collaboration features</strong> (High value, 8 hrs) → Upsell opportunity
+      </div>
+    </div>
+
+    <div style="display: flex; gap: 10px;">
+      <button onclick="sendPrompt('Start next iteration with top priorities')" style="flex: 1; padding: 10px; font-size: 14px; font-weight: 500;">Start iteration ↗</button>
+      <button onclick="sendPrompt('Customize priority order')" style="padding: 10px 16px; font-size: 14px;">Customize</button>
+    </div>
+  </div>
+</div>

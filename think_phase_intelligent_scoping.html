@@ -1,0 +1,220 @@
+<div style="background: var(--color-background-secondary); border-radius: var(--border-radius-lg); padding: 1.5rem;">
+  
+  <div style="margin-bottom: 1.5rem;">
+    <h2 style="margin: 0 0 4px; font-size: 18px; font-weight: 500;">Think: Intelligent project scoping</h2>
+    <p style="margin: 0; font-size: 13px; color: var(--color-text-secondary);">AI-assisted planning from idea to execution blueprint</p>
+  </div>
+
+  <!-- Initial Idea Input -->
+  <div style="background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; margin-bottom: 1rem;">
+    <h3 style="margin: 0 0 10px; font-size: 14px; font-weight: 500; color: var(--color-text-secondary);">Project brief</h3>
+    <div style="padding: 14px; background: var(--color-background-secondary); border-radius: var(--border-radius-md); border-left: 3px solid var(--color-border-purple);">
+      <p style="margin: 0; font-size: 14px; line-height: 1.7;">
+        <strong>Idea:</strong> SaaS analytics dashboard for tracking user behavior and revenue metrics<br>
+        <strong>Goal:</strong> Help founders understand what's driving growth<br>
+        <strong>Timeline:</strong> Ship MVP in 1 week<br>
+        <strong>Stack preference:</strong> React, Next.js, Supabase
+      </p>
+    </div>
+  </div>
+
+  <!-- AI Analysis -->
+  <div style="background: var(--color-background-primary); border: 2px solid var(--color-border-purple); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; margin-bottom: 1rem;">
+    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M10 2L12 8L18 9L14 13L15 19L10 16L5 19L6 13L2 9L8 8L10 2Z" fill="var(--color-text-purple)"/>
+      </svg>
+      <h3 style="margin: 0; font-size: 15px; font-weight: 500;">AI project analysis</h3>
+    </div>
+
+    <!-- Scoped Features -->
+    <div style="margin-bottom: 12px;">
+      <p style="margin: 0 0 8px; font-size: 13px; font-weight: 500;">Recommended MVP scope</p>
+      
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <div style="padding: 10px; background: var(--color-background-success); border-radius: var(--border-radius-md); border-left: 3px solid var(--color-border-success);">
+          <p style="margin: 0 0 4px; font-size: 13px; font-weight: 500; color: var(--color-text-success);">Core features (must have)</p>
+          <div style="font-size: 12px; color: var(--color-text-success); line-height: 1.6; opacity: 0.9;">
+            • User dashboard with key metrics (MRR, active users, churn)<br>
+            • Event tracking integration<br>
+            • Basic charts (line, bar for trends)<br>
+            • Simple authentication
+          </div>
+        </div>
+
+        <div style="padding: 10px; background: var(--color-background-info); border-radius: var(--border-radius-md); border-left: 3px solid var(--color-border-info);">
+          <p style="margin: 0 0 4px; font-size: 13px; font-weight: 500; color: var(--color-text-info);">Nice to have (defer to v2)</p>
+          <div style="font-size: 12px; color: var(--color-text-info); line-height: 1.6; opacity: 0.9;">
+            • Advanced filtering/segmentation<br>
+            • Cohort analysis<br>
+            • Custom dashboards<br>
+            • Team collaboration
+          </div>
+        </div>
+
+        <div style="padding: 10px; background: var(--color-background-secondary); border-radius: var(--border-radius-md); border-left: 3px solid var(--color-border-tertiary);">
+          <p style="margin: 0 0 4px; font-size: 13px; font-weight: 500; color: var(--color-text-secondary);">Out of scope for MVP</p>
+          <div style="font-size: 12px; color: var(--color-text-secondary); line-height: 1.6;">
+            • Real-time data streaming<br>
+            • AI-powered insights<br>
+            • White-label options
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Technical Architecture -->
+    <div style="padding: 12px; background: var(--color-background-purple); border-radius: var(--border-radius-md);">
+      <p style="margin: 0 0 8px; font-size: 13px; font-weight: 500; color: var(--color-text-purple);">Recommended tech stack</p>
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; font-size: 12px; color: var(--color-text-purple); opacity: 0.95;">
+        <div>
+          <strong>Frontend:</strong> Next.js 14, Tailwind, Recharts<br>
+          <strong>Backend:</strong> Next.js API routes<br>
+          <strong>Database:</strong> Supabase (PostgreSQL)
+        </div>
+        <div>
+          <strong>Auth:</strong> Supabase Auth<br>
+          <strong>Hosting:</strong> Vercel<br>
+          <strong>Analytics:</strong> PostHog SDK
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Generated Task Breakdown -->
+  <div style="background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; margin-bottom: 1rem;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+      <h3 style="margin: 0; font-size: 15px; font-weight: 500;">Execution plan (18 tasks)</h3>
+      <button onclick="sendPrompt('Start build phase')" style="padding: 6px 14px; font-size: 13px; font-weight: 500;">Start building ↗</button>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      
+      <!-- Day 1-2 -->
+      <div>
+        <p style="margin: 0 0 8px; font-size: 12px; font-weight: 500; color: var(--color-text-secondary);">Days 1-2: Foundation</p>
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <div style="padding: 8px 10px; background: var(--color-background-secondary); border-radius: var(--border-radius-md); font-size: 13px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 11px; padding: 2px 6px; background: var(--color-background-purple); color: var(--color-text-purple); border-radius: 3px; font-weight: 500;">SETUP</span>
+              <span>Project initialization & dependencies</span>
+              <span style="margin-left: auto; font-size: 11px; color: var(--color-text-secondary);">30 min</span>
+            </div>
+          </div>
+          <div style="padding: 8px 10px; background: var(--color-background-secondary); border-radius: var(--border-radius-md); font-size: 13px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 11px; padding: 2px 6px; background: var(--color-background-purple); color: var(--color-text-purple); border-radius: 3px; font-weight: 500;">SETUP</span>
+              <span>Supabase config & database schema</span>
+              <span style="margin-left: auto; font-size: 11px; color: var(--color-text-secondary);">1 hr</span>
+            </div>
+          </div>
+          <div style="padding: 8px 10px; background: var(--color-background-secondary); border-radius: var(--border-radius-md); font-size: 13px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 11px; padding: 2px 6px; background: var(--color-background-teal); color: var(--color-text-teal); border-radius: 3px; font-weight: 500;">BUILD</span>
+              <span>Authentication UI & flows (AI-generated)</span>
+              <span style="margin-left: auto; font-size: 11px; color: var(--color-text-secondary);">2 hrs</span>
+            </div>
+          </div>
+          <div style="padding: 8px 10px; background: var(--color-background-secondary); border-radius: var(--border-radius-md); font-size: 13px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 11px; padding: 2px 6px; background: var(--color-background-teal); color: var(--color-text-teal); border-radius: 3px; font-weight: 500;">BUILD</span>
+              <span>Dashboard layout component (AI-generated)</span>
+              <span style="margin-left: auto; font-size: 11px; color: var(--color-text-secondary);">1 hr</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Day 3-4 -->
+      <div>
+        <p style="margin: 0 0 8px; font-size: 12px; font-weight: 500; color: var(--color-text-secondary);">Days 3-4: Core features</p>
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <div style="padding: 8px 10px; background: var(--color-background-secondary); border-radius: var(--border-radius-md); font-size: 13px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 11px; padding: 2px 6px; background: var(--color-background-teal); color: var(--color-text-teal); border-radius: 3px; font-weight: 500;">BUILD</span>
+              <span>Metrics calculation engine</span>
+              <span style="margin-left: auto; font-size: 11px; color: var(--color-text-secondary);">3 hrs</span>
+            </div>
+          </div>
+          <div style="padding: 8px 10px; background: var(--color-background-secondary); border-radius: var(--border-radius-md); font-size: 13px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 11px; padding: 2px 6px; background: var(--color-background-teal); color: var(--color-text-teal); border-radius: 3px; font-weight: 500;">BUILD</span>
+              <span>Chart components (AI-generated from Recharts)</span>
+              <span style="margin-left: auto; font-size: 11px; color: var(--color-text-secondary);">2 hrs</span>
+            </div>
+          </div>
+          <div style="padding: 8px 10px; background: var(--color-background-secondary); border-radius: var(--border-radius-md); font-size: 13px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 11px; padding: 2px 6px; background: var(--color-background-teal); color: var(--color-text-teal); border-radius: 3px; font-weight: 500;">BUILD</span>
+              <span>Event tracking integration</span>
+              <span style="margin-left: auto; font-size: 11px; color: var(--color-text-secondary);">4 hrs</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Day 5-7 -->
+      <div>
+        <p style="margin: 0 0 8px; font-size: 12px; font-weight: 500; color: var(--color-text-secondary);">Days 5-7: Polish & ship</p>
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <div style="padding: 8px 10px; background: var(--color-background-secondary); border-radius: var(--border-radius-md); font-size: 13px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 11px; padding: 2px 6px; background: var(--color-background-teal); color: var(--color-text-teal); border-radius: 3px; font-weight: 500;">BUILD</span>
+              <span>Data table with sorting (AI-generated)</span>
+              <span style="margin-left: auto; font-size: 11px; color: var(--color-text-secondary);">2 hrs</span>
+            </div>
+          </div>
+          <div style="padding: 8px 10px; background: var(--color-background-secondary); border-radius: var(--border-radius-md); font-size: 13px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 11px; padding: 2px 6px; background: var(--color-background-blue); color: var(--color-text-blue); border-radius: 3px; font-weight: 500;">SHIP</span>
+              <span>Deploy to Vercel</span>
+              <span style="margin-left: auto; font-size: 11px; color: var(--color-text-secondary);">30 min</span>
+            </div>
+          </div>
+          <div style="padding: 8px 10px; background: var(--color-background-secondary); border-radius: var(--border-radius-md); font-size: 13px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 11px; padding: 2px 6px; background: var(--color-background-amber); color: var(--color-text-amber); border-radius: 3px; font-weight: 500;">LISTEN</span>
+              <span>Set up monitoring & error tracking</span>
+              <span style="margin-left: auto; font-size: 11px; color: var(--color-text-secondary);">1 hr</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Estimate Summary -->
+    <div style="margin-top: 12px; padding: 12px; background: var(--color-background-info); border-radius: var(--border-radius-md);">
+      <div style="display: flex; justify-content: space-between; font-size: 13px; color: var(--color-text-info);">
+        <div>
+          <strong>Total estimated time:</strong> 28-32 hours
+        </div>
+        <div>
+          <strong>Target ship date:</strong> 7 days from start
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Risk Analysis -->
+  <div style="background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem;">
+    <h3 style="margin: 0 0 12px; font-size: 15px; font-weight: 500;">Risk assessment</h3>
+    
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+      <div style="padding: 10px; background: var(--color-background-warning); border-radius: var(--border-radius-md);">
+        <p style="margin: 0 0 4px; font-size: 13px; font-weight: 500; color: var(--color-text-warning);">⚠️ Event tracking complexity</p>
+        <p style="margin: 0; font-size: 12px; color: var(--color-text-warning); opacity: 0.9;">PostHog integration may need custom logic. Budget extra 2-3 hours if edge cases arise.</p>
+      </div>
+
+      <div style="padding: 10px; background: var(--color-background-info); border-radius: var(--border-radius-md);">
+        <p style="margin: 0 0 4px; font-size: 13px; font-weight: 500; color: var(--color-text-info);">💡 AI acceleration opportunity</p>
+        <p style="margin: 0; font-size: 12px; color: var(--color-text-info); opacity: 0.9;">UI components can be 80% AI-generated. Focus manual effort on business logic and data modeling.</p>
+      </div>
+
+      <div style="padding: 10px; background: var(--color-background-success); border-radius: var(--border-radius-md);">
+        <p style="margin: 0 0 4px; font-size: 13px; font-weight: 500; color: var(--color-text-success);">✓ Low risk areas</p>
+        <p style="margin: 0; font-size: 12px; color: var(--color-text-success); opacity: 0.9;">Auth, deployment, and basic CRUD are well-trodden paths. Use boilerplate patterns.</p>
+      </div>
+    </div>
+  </div>
+</div>
