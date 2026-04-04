@@ -1,20 +1,17 @@
 -- ============================================================
--- Yacht Labs v2 Migration
--- Run in Supabase SQL Editor → supabase.com/dashboard/project/_/sql
+-- Yacht Labs v2 Migration  (idempotent — safe to re-run)
+-- Supabase SQL Editor → supabase.com/dashboard/project/_/sql
 -- ============================================================
 
--- 1. Add streak columns to projects
+-- 1. Add missing columns to projects
 alter table projects
-  add column if not exists last_ship_date date,
+  add column if not exists last_ship_date  date,
   add column if not exists current_streak  integer default 0,
-  add column if not exists longest_streak  integer default 0;
-
--- 2. Add public project fields to projects
-alter table projects
-  add column if not exists is_public    boolean default false,
-  add column if not exists slug         text unique,
-  add column if not exists view_count   integer default 0,
-  add column if not exists shared_count integer default 0;
+  add column if not exists longest_streak  integer default 0,
+  add column if not exists is_public       boolean default false,
+  add column if not exists slug            text unique,
+  add column if not exists view_count      integer default 0,
+  add column if not exists shared_count    integer default 0;
 
 create index if not exists projects_slug_idx
   on projects(slug) where slug is not null;
@@ -22,12 +19,13 @@ create index if not exists projects_slug_idx
 create index if not exists projects_public_idx
   on projects(is_public) where is_public = true;
 
--- 3. RLS policy so public projects are readable by anyone
+-- 2. Public projects RLS
+drop policy if exists "Public projects are viewable by everyone" on projects;
 create policy "Public projects are viewable by everyone"
   on projects for select
   using (is_public = true);
 
--- 4. Daily ships log
+-- 3. daily_ships table
 create table if not exists daily_ships (
   id               uuid primary key default uuid_generate_v4(),
   user_id          uuid references auth.users not null,
@@ -39,6 +37,11 @@ create table if not exists daily_ships (
 );
 
 alter table daily_ships enable row level security;
+
+-- 4. daily_ships RLS policies
+drop policy if exists "Users see their own ships"                 on daily_ships;
+drop policy if exists "Users create their own ships"             on daily_ships;
+drop policy if exists "Public ships visible for public projects" on daily_ships;
 
 create policy "Users see their own ships"
   on daily_ships for select
@@ -56,22 +59,19 @@ create policy "Public ships visible for public projects"
     )
   );
 
--- 5. Atomic view counter (called from /api/projects/[slug]/view)
+-- 5. Atomic view/share counters
 create or replace function increment_project_views(project_slug text)
 returns void as $$
 begin
-  update projects
-  set view_count = view_count + 1
+  update projects set view_count = view_count + 1
   where slug = project_slug and is_public = true;
 end;
 $$ language plpgsql;
 
--- 6. Atomic share counter (called from /api/projects/[slug]/share)
 create or replace function increment_project_shares(project_slug text)
 returns void as $$
 begin
-  update projects
-  set shared_count = shared_count + 1
+  update projects set shared_count = shared_count + 1
   where slug = project_slug and is_public = true;
 end;
 $$ language plpgsql;
