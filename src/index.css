@@ -1,0 +1,224 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-serif: "Cormorant Garamond", serif;
+
+  --color-lab-blue: #0074D9;
+  --color-navy: #001F3F;
+}
+
+@layer base {
+  body {
+    @apply bg-zinc-950 text-zinc-100;
+  }
+}
+
+/* The Yacht Labs Founder Badge */
+.founder-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  background-color: #001F3F; /* Deep Yacht Navy */
+  color: #0074D9; /* Electric Lab Blue */
+  border: 1.5px solid #0074D9;
+  border-radius: 4px; /* Slight round for utility, not fluff */
+  font-family: 'Monaco', 'Consolas', monospace;
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.founder-badge::before {
+  content: "⚓"; /* Nautical touch */
+  margin-right: 6px;
+  font-size: 12px;
+}
+
+/* Hover effect to show it's active */
+.founder-badge:hover {
+  background-color: #0074D9;
+  color: #001F3F;
+  cursor: help;
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 12s linear infinite;
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+/* Synthesis Engine Markdown Styling */
+.synthesis-output {
+  @apply font-sans text-zinc-300 p-8 md:p-12;
+  background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.03) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+.synthesis-output h1 {
+  color: #0074D9; /* Electric Blue */
+  border-bottom: 1px solid rgba(0, 116, 217, 0.3);
+  font-size: 2.25rem;
+  margin-top: 48px;
+  margin-bottom: 24px;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+.synthesis-output h2 {
+  color: #0074D9;
+  font-size: 1.75rem;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-weight: 800;
+  border-left: 4px solid #0074D9;
+  padding-left: 16px;
+}
+
+.synthesis-output h3 {
+  color: #0074D9;
+  font-size: 1.25rem;
+  margin-top: 32px;
+  margin-bottom: 16px;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.synthesis-output p {
+  margin-bottom: 24px;
+  line-height: 1.8;
+  font-size: 1.05rem;
+  @apply text-zinc-400;
+}
+
+.synthesis-output ul, .synthesis-output ol {
+  margin-bottom: 24px;
+  padding-left: 28px;
+  @apply space-y-3;
+}
+
+.synthesis-output li {
+  @apply text-zinc-400;
+}
+
+.synthesis-output blockquote {
+  @apply border-l-4 p-6 italic my-8 rounded-r-xl text-lg;
+  border-left-color: color-mix(in srgb, var(--color-lab-blue), transparent 60%);
+  background-color: color-mix(in srgb, var(--color-navy), transparent 80%);
+  color: color-mix(in srgb, var(--color-lab-blue), transparent 20%);
+}
+
+.synthesis-output table {
+  @apply w-full border-collapse my-10 text-sm rounded-xl overflow-hidden shadow-xl;
+}
+
+.synthesis-output th {
+  @apply border p-4 text-left font-mono uppercase tracking-widest text-xs;
+  background-color: color-mix(in srgb, var(--color-navy), transparent 20%);
+  border-color: color-mix(in srgb, var(--color-lab-blue), transparent 80%);
+  color: var(--color-lab-blue);
+}
+
+.synthesis-output td {
+  @apply border p-4 text-zinc-400;
+  border-color: color-mix(in srgb, var(--color-lab-blue), transparent 90%);
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.synthesis-output code {
+  background: #001f3f; /* Dark Navy */
+  color: #FFDC00; /* Lab Warning Yellow */
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  border: 1px solid rgba(255, 220, 0, 0.2);
+}
+
+.synthesis-output pre {
+  background: #050505;
+  padding: 32px;
+  border: 1px solid rgba(0, 116, 217, 0.3);
+  overflow-x: auto;
+  margin-bottom: 32px;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px -20px rgba(0, 116, 217, 0.3);
+  position: relative;
+}
+
+.synthesis-output pre::before {
+  content: "SOURCE CODE";
+  position: absolute;
+  top: 0;
+  right: 24px;
+  transform: translateY(-50%);
+  background: #0074D9;
+  color: white;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  letter-spacing: 1px;
+}
+
+.synthesis-output pre code {
+  background: transparent;
+  padding: 0;
+  color: #0074D9;
+  font-size: 0.95rem;
+  border: none;
+}
+
+/* Presentation Mode Styles */
+.presentation-slide {
+  @apply w-full h-full flex flex-col items-center justify-center text-center p-12;
+}
+
+.presentation-slide h1 {
+  @apply text-6xl mb-10 border-none text-white font-black tracking-tighter;
+  text-shadow: 0 0 30px rgba(0, 116, 217, 0.3);
+}
+
+.presentation-slide h2 {
+  @apply text-4xl mb-8 text-lab-blue font-bold border-none p-0;
+}
+
+.presentation-slide p {
+  @apply text-2xl text-zinc-400 max-w-3xl mx-auto leading-relaxed;
+}
+
+.presentation-slide ul, .presentation-slide ol {
+  @apply text-xl text-left inline-block mx-auto mt-8 space-y-4;
+}
+
+.presentation-slide li {
+  @apply text-zinc-300;
+}
+
+.presentation-slide pre {
+  @apply text-left max-w-4xl mx-auto w-full mt-10;
+  box-shadow: 0 30px 60px -30px rgba(0, 116, 217, 0.5);
+}

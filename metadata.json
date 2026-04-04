@@ -1,0 +1,8 @@
+{
+  "name": "Yacht Labs",
+  "description": "A multimodal content studio for creators featuring AI inference, synthesis, kinetics, acoustics, and automation.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}

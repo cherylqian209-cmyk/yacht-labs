@@ -1,0 +1,255 @@
+{
+  "entities": {
+    "userProfile": {
+      "title": "User Profile",
+      "description": "Stores user-specific settings and profile information.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "email": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "onboarded": { "type": "boolean" },
+        "intent": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email"]
+    },
+    "project": {
+      "title": "Project",
+      "description": "A container for content and tasks.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "ownerId": { "type": "string" },
+        "autopilot": { "type": "boolean" },
+        "isLaunched": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "ownerId"]
+    },
+    "task": {
+      "title": "Task",
+      "description": "A task within a project.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "projectId": { "type": "string" },
+        "title": { "type": "string" },
+        "status": { "type": "string", "enum": ["todo", "in-progress", "done"] },
+        "priority": { "type": "string", "enum": ["low", "medium", "high"] },
+        "ownerId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "projectId", "ownerId"]
+    },
+    "document": {
+      "title": "Document",
+      "description": "A text document or creative brief.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "projectId": { "type": "string" },
+        "title": { "type": "string" },
+        "content": { "type": "string" },
+        "ownerId": { "type": "string" },
+        "folderId": { "type": "string", "description": "Optional folder ID for organization" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "projectId", "ownerId"]
+    },
+    "chatMessage": {
+      "title": "Chat Message",
+      "description": "A message in an AI conversation.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "projectId": { "type": "string" },
+        "role": { "type": "string", "enum": ["user", "model"] },
+        "content": { "type": "string" },
+        "fileData": { "type": "string", "description": "Base64 encoded file data" },
+        "fileName": { "type": "string" },
+        "fileType": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["role", "content", "projectId"]
+    },
+    "feedback": {
+      "title": "Feedback",
+      "description": "User feedback or bug reports.",
+      "type": "object",
+      "properties": {
+        "content": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "status": { "type": "string" },
+        "type": { "type": "string" },
+        "uid": { "type": "string" },
+        "userEmail": { "type": "string" }
+      },
+      "required": ["content", "createdAt"]
+    },
+    "survey": {
+      "title": "Survey",
+      "description": "User sentiment survey response.",
+      "type": "object",
+      "properties": {
+        "deploymentId": { "type": "string" },
+        "projectId": { "type": "string" },
+        "rating": { "type": "number" },
+        "question": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["deploymentId", "projectId", "rating", "createdAt"]
+    },
+    "event": {
+      "title": "Event",
+      "description": "User interaction event for analytics.",
+      "type": "object",
+      "properties": {
+        "eventName": { "type": "string" },
+        "properties": { "type": "object" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "url": { "type": "string" },
+        "userAgent": { "type": "string" },
+        "uid": { "type": "string" }
+      },
+      "required": ["eventName", "timestamp"]
+    },
+    "blueprint": {
+      "title": "Blueprint",
+      "description": "A synthesized technical document.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "content": { "type": "string" },
+        "ownerId": { "type": "string" },
+        "isPublic": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["content", "ownerId", "createdAt"]
+    },
+    "deployment": {
+      "title": "Deployment",
+      "description": "A published project build.",
+      "type": "object",
+      "properties": {
+        "projectId": { "type": "string" },
+        "documentId": { "type": "string" },
+        "title": { "type": "string" },
+        "content": { "type": "string" },
+        "status": { "type": "string" },
+        "region": { "type": "string" },
+        "deployedAt": { "type": "string", "format": "date-time" },
+        "url": { "type": "string" },
+        "liveUrl": { "type": "string" },
+        "folderId": { "type": "string", "description": "Optional folder ID for organization" },
+        "type": { "type": "string", "enum": ["main", "micro-tool"], "description": "Type of deployment" }
+      },
+      "required": ["projectId", "documentId", "title", "content", "status", "deployedAt", "url", "liveUrl"]
+    },
+    "outreach": {
+      "title": "Outreach",
+      "description": "A log of an outreach action.",
+      "type": "object",
+      "properties": {
+        "projectId": { "type": "string" },
+        "target": { "type": "string" },
+        "platform": { "type": "string" },
+        "status": { "type": "string" },
+        "threadUrl": { "type": "string" },
+        "leadDetails": { "type": "string" },
+        "contactInfo": { "type": "string" },
+        "method": { "type": "string" },
+        "response": { "type": "string" },
+        "notes": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["projectId", "target", "platform", "status", "createdAt"]
+    },
+    "acoustics_echo": {
+      "title": "Acoustics Echo",
+      "description": "A real-time tracking event from a shipped project.",
+      "type": "object",
+      "properties": {
+        "projectId": { "type": "string" },
+        "event": { "type": "string" },
+        "data": { "type": "object" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "location": { "type": "string", "description": "Derived from IP or metadata" }
+      },
+      "required": ["projectId", "event", "timestamp"]
+    },
+    "folder": {
+      "title": "Folder",
+      "description": "A folder for organizing builds and deployments.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "projectId": { "type": "string" },
+        "name": { "type": "string" },
+        "ownerId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "projectId", "ownerId"]
+    }
+  },
+  "firestore": {
+    "/users/{uid}": {
+      "schema": "userProfile",
+      "description": "User profile documents."
+    },
+    "/projects/{projectId}": {
+      "schema": "project",
+      "description": "Project metadata."
+    },
+    "/projects/{projectId}/tasks/{taskId}": {
+      "schema": "task",
+      "description": "Tasks associated with a project."
+    },
+    "/projects/{projectId}/documents/{docId}": {
+      "schema": "document",
+      "description": "Documents associated with a project."
+    },
+    "/projects/{projectId}/chats/{chatId}": {
+      "schema": "chatMessage",
+      "description": "Chat history for a project."
+    },
+    "/feedback/{feedbackId}": {
+      "schema": "feedback",
+      "description": "User feedback collection."
+    },
+    "/surveys/{surveyId}": {
+      "schema": "survey",
+      "description": "User sentiment surveys."
+    },
+    "/events/{eventId}": {
+      "schema": "event",
+      "description": "Analytics events."
+    },
+    "/blueprints/{blueprintId}": {
+      "schema": "blueprint",
+      "description": "Synthesized blueprints."
+    },
+    "/deployments/{deploymentId}": {
+      "schema": "deployment",
+      "description": "Published project builds."
+    },
+    "/outreach/{outreachId}": {
+      "schema": "outreach",
+      "description": "Outreach logs for growth tracking."
+    },
+    "/acoustics_logs/{echoId}": {
+      "schema": "acoustics_echo",
+      "description": "Real-time interaction logs for Pro members."
+    },
+    "/folders/{folderId}": {
+      "schema": "folder",
+      "description": "Folders for organization."
+    }
+  }
+}

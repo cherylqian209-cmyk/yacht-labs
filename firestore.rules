@@ -1,0 +1,161 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // ===============================================================
+    // Assumed Data Model
+    // ===============================================================
+    // Collection: users
+    // Document ID: {uid}
+    // Fields: uid, displayName, email, photoURL, createdAt
+    
+    // Collection: projects
+    // Document ID: {projectId}
+    // Fields: id, name, description, ownerId, autopilot, isLaunched, createdAt, updatedAt
+    
+    // Collection: projects/{projectId}/tasks
+    // Fields: id, projectId, title, status, priority, ownerId, createdAt
+    
+    // Collection: projects/{projectId}/documents
+    // Fields: id, projectId, title, content, ownerId, createdAt, updatedAt
+    
+    // Collection: projects/{projectId}/chats
+    // Fields: id, projectId, role, content, timestamp
+
+    // Collection: deployments
+    // Fields: projectId, documentId, title, content, status, region, deployedAt, url, liveUrl
+
+    // Collection: outreach
+    // Fields: projectId, target, platform, status, createdAt
+
+    // Collection: blueprints
+    // Fields: id, title, content, ownerId, isPublic, createdAt
+
+    // Collection: builds
+    // Fields: id, projectId, title, description, createdAt
+
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    function isProjectOwner(projectId) {
+      return isAuthenticated() && 
+             projectId != null && 
+             projectId != "" && 
+             exists(/databases/$(database)/documents/projects/$(projectId)) &&
+             get(/databases/$(database)/documents/projects/$(projectId)).data.ownerId == request.auth.uid;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() &&
+        ((request.auth.token.email == "cheryl.q731@gmail.com" && request.auth.token.email_verified == true) ||
+         (exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+          get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin'));
+    }
+
+    function isValidString(val, min, max) {
+      return val is string && val.size() >= min && val.size() <= max;
+    }
+
+    // ===============================================================
+    // Rules
+    // ===============================================================
+
+    match /users/{uid} {
+      allow read: if isOwner(uid) || isAdmin();
+      allow write: if isOwner(uid) || isAdmin();
+    }
+
+    match /projects/{projectId} {
+      allow read: if isAuthenticated() && (resource.data.ownerId == request.auth.uid || isAdmin());
+      allow create: if isAuthenticated() && request.resource.data.ownerId == request.auth.uid;
+      allow update: if isAuthenticated() && (resource.data.ownerId == request.auth.uid || isAdmin()) && (request.resource.data.ownerId == resource.data.ownerId || isAdmin());
+      allow delete: if isAuthenticated() && (resource.data.ownerId == request.auth.uid || isAdmin());
+
+      match /tasks/{taskId} {
+        allow read, write: if isProjectOwner(projectId) || isAdmin();
+      }
+      
+      match /documents/{docId} {
+        allow read, write: if isProjectOwner(projectId) || isAdmin();
+      }
+      
+      match /chats/{chatId} {
+        allow read, write: if isProjectOwner(projectId) || isAdmin();
+      }
+    }
+    
+    match /builds/{buildId} {
+      allow read: if isAuthenticated() && (isAdmin() || isProjectOwner(resource.data.projectId));
+      allow create: if isAuthenticated() && isProjectOwner(request.resource.data.projectId);
+      allow update, delete: if isAuthenticated() && isProjectOwner(resource.data.projectId);
+    }
+
+    match /test/connection {
+      allow read: if true;
+    }
+
+    match /deployments/{depId} {
+      allow read: if true;
+      allow create: if isProjectOwner(request.resource.data.projectId);
+      allow update: if isProjectOwner(resource.data.projectId) || isProjectOwner(request.resource.data.projectId);
+      allow delete: if isProjectOwner(resource.data.projectId);
+    }
+
+    match /outreach/{outreachId} {
+      allow read: if isAuthenticated() && (isAdmin() || isProjectOwner(resource.data.projectId));
+      allow create: if isAuthenticated() && isProjectOwner(request.resource.data.projectId);
+      allow update, delete: if isAuthenticated() && isProjectOwner(resource.data.projectId);
+    }
+
+    match /feedback/{feedbackId} {
+      allow read: if isAuthenticated() && (isAdmin() || (resource.data.projectId != null && isProjectOwner(resource.data.projectId)));
+      allow create: if isAuthenticated();
+    }
+
+    match /surveys/{surveyId} {
+      allow read: if isAuthenticated() && (isAdmin() || (resource.data.projectId != null && isProjectOwner(resource.data.projectId)));
+      allow create: if isAuthenticated() && isProjectOwner(request.resource.data.projectId);
+    }
+
+    match /events/{eventId} {
+      allow read: if isAuthenticated() && (isAdmin() || (resource.data.projectId != null && isProjectOwner(resource.data.projectId)));
+      allow create: if true;
+    }
+
+    match /mission_chatter/{chatterId} {
+      allow read: if true;
+      allow create: if isAuthenticated();
+      allow update, delete: if isAuthenticated() && (resource.data.userId == request.auth.uid || isAdmin());
+    }
+
+    match /blueprints/{blueprintId} {
+      allow read: if resource.data.isPublic == true || (isAuthenticated() && resource.data.ownerId == request.auth.uid);
+      allow create: if isAuthenticated() && request.resource.data.ownerId == request.auth.uid && 
+                      request.resource.data.keys().hasAll(['content', 'ownerId', 'createdAt']) &&
+                      request.resource.data.content is string && request.resource.data.content.size() < 100000;
+      allow update: if isAuthenticated() && resource.data.ownerId == request.auth.uid && 
+                      request.resource.data.ownerId == request.auth.uid &&
+                      request.resource.data.content is string && request.resource.data.content.size() < 100000;
+      allow delete: if isAuthenticated() && resource.data.ownerId == request.auth.uid;
+    }
+
+    match /acoustics_logs/{echoId} {
+      allow read: if isAuthenticated() && (isAdmin() || (resource.data.projectId != null && isProjectOwner(resource.data.projectId)));
+      allow create: if isAuthenticated();
+      allow update: if isAdmin();
+    }
+
+    match /folders/{folderId} {
+      allow read: if isAuthenticated() && isProjectOwner(resource.data.projectId);
+      allow create: if isAuthenticated() && isProjectOwner(request.resource.data.projectId);
+      allow update, delete: if isAuthenticated() && isProjectOwner(resource.data.projectId);
+    }
+  }
+}
