@@ -4,6 +4,9 @@ import { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { Check, Clock, Zap, Code, TrendingUp, ChevronRight, Loader2, Sparkles } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
+import DailyCheckInModal from '@/components/streak/DailyCheckInModal'
+import StreakWidget from '@/components/streak/StreakWidget'
+import { shouldShowCheckIn } from '@/lib/streak/checkInPrompt'
 
 interface Task {
   id: string
@@ -21,6 +24,9 @@ interface Project {
   name: string
   phase: string
   tasks: Task[]
+  current_streak?: number
+  longest_streak?: number
+  last_ship_date?: string | null
 }
 
 const pipelineSteps = [
@@ -41,6 +47,7 @@ export default function BuildPage() {
   const [advancing, setAdvancing] = useState(false)
   const [updatingTask, setUpdatingTask] = useState<string | null>(null)
   const [generatingCode, setGeneratingCode] = useState<string | null>(null)
+  const [showCheckIn, setShowCheckIn] = useState(false)
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -52,9 +59,36 @@ export default function BuildPage() {
         .single()
       setProject(data)
       setLoading(false)
+
+      if (data && shouldShowCheckIn(data.last_ship_date)) {
+        const timer = setTimeout(() => setShowCheckIn(true), 3000)
+        return () => clearTimeout(timer)
+      }
     }
     fetchProject()
   }, [id])
+
+  const handleLogShip = async (description: string) => {
+    const res = await fetch('/api/ships/log', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ projectId: id, description }),
+    })
+    const data = await res.json()
+    if (data.success) {
+      setProject((prev) =>
+        prev
+          ? {
+              ...prev,
+              current_streak: data.streak,
+              longest_streak: data.longestStreak,
+              last_ship_date: new Date().toISOString().split('T')[0],
+            }
+          : prev
+      )
+    }
+    setShowCheckIn(false)
+  }
 
   const toggleTask = async (task: Task) => {
     setUpdatingTask(task.id)
@@ -120,6 +154,16 @@ export default function BuildPage() {
 
   return (
     <div className="px-6 py-10 max-w-5xl mx-auto space-y-8">
+      {/* Daily check-in modal */}
+      {showCheckIn && project && (
+        <DailyCheckInModal
+          projectName={project.name}
+          currentStreak={project.current_streak ?? 0}
+          onClose={() => setShowCheckIn(false)}
+          onSubmit={handleLogShip}
+        />
+      )}
+
       {/* Header */}
       <div>
         <p
@@ -227,6 +271,14 @@ export default function BuildPage() {
           </div>
         ))}
       </div>
+
+      {/* Streak Widget */}
+      {(project.current_streak ?? 0) > 0 || project.last_ship_date ? (
+        <StreakWidget
+          currentStreak={project.current_streak ?? 0}
+          longestStreak={project.longest_streak ?? 0}
+        />
+      ) : null}
 
       {/* Task List */}
       <div className="bg-[#111111] border border-[#222222] rounded-xl p-6">
