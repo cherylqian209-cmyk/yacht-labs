@@ -155,6 +155,31 @@ Return ONLY the JSON object.`
   }
 }
 
+export async function patchSpec(currentSpec: object, userPrompt: string) {
+  const client = getClient()
+  if (!client) return currentSpec
+
+  const prompt = `You are updating an existing project specification based on user feedback.
+
+Current specification:
+${JSON.stringify(currentSpec, null, 2)}
+
+User's requested changes: ${userPrompt}
+
+Return an updated JSON object with the exact same structure as the current spec, incorporating the requested changes. Preserve all unchanged fields. Adjust coreFeatures, niceToHave, outOfScope, techStack, estimatedDays, and risks as appropriate.
+
+Return ONLY the JSON object, no markdown or extra text.`
+
+  try {
+    const text = await ask(prompt)
+    const parsed = JSON.parse(extractJSON(text))
+    // Ensure required fields are preserved if AI drops them
+    return { ...currentSpec, ...parsed }
+  } catch {
+    return currentSpec
+  }
+}
+
 export async function analyzeMetrics(data: object) {
   const fallback = [
     { type: 'success', title: 'Strong User Retention', description: 'Your 7-day retention rate is above industry average.', action: 'Consider adding a referral program.' },

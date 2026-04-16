@@ -68,7 +68,10 @@ export async function POST(request: NextRequest) {
           order_index: idx,
         })
       )
-      await supabase.from('tasks').insert(taskRows)
+      const { error: taskError } = await supabase.from('tasks').insert(taskRows)
+      if (taskError) {
+        console.error('Task insert error (project still created):', taskError)
+      }
     }
 
     return NextResponse.json({ project, analysis })

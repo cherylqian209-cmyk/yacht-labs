@@ -51,6 +51,7 @@ export default function ThinkPage() {
   const [project, setProject] = useState<Project | null>(null)
   const [loading, setLoading] = useState(true)
   const [advancing, setAdvancing] = useState(false)
+  const [advanceError, setAdvanceError] = useState('')
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -69,9 +70,16 @@ export default function ThinkPage() {
 
   const handleStartBuilding = async () => {
     setAdvancing(true)
-    const supabase = createClient()
-    await supabase.from('projects').update({ phase: 'build' }).eq('id', id)
-    router.push(`/dashboard/projects/${id}/build`)
+    setAdvanceError('')
+    try {
+      const supabase = createClient()
+      const { error } = await supabase.from('projects').update({ phase: 'build' }).eq('id', id)
+      if (error) throw error
+      router.push(`/dashboard/projects/${id}/build`)
+    } catch {
+      setAdvanceError('Failed to advance phase. Please try again.')
+      setAdvancing(false)
+    }
   }
 
   if (loading) {
@@ -316,7 +324,10 @@ export default function ThinkPage() {
       )}
 
       {/* CTA */}
-      <div className="flex justify-end">
+      <div className="flex flex-col items-end gap-2">
+        {advanceError && (
+          <p className="text-[#ef4444] text-xs">{advanceError}</p>
+        )}
         <button
           onClick={handleStartBuilding}
           disabled={advancing}

@@ -45,6 +45,7 @@ export default function BuildPage() {
   const [project, setProject] = useState<Project | null>(null)
   const [loading, setLoading] = useState(true)
   const [advancing, setAdvancing] = useState(false)
+  const [advanceError, setAdvanceError] = useState('')
   const [updatingTask, setUpdatingTask] = useState<string | null>(null)
   const [generatingCode, setGeneratingCode] = useState<string | null>(null)
   const [showCheckIn, setShowCheckIn] = useState(false)
@@ -129,9 +130,16 @@ export default function BuildPage() {
 
   const handleAdvance = async () => {
     setAdvancing(true)
-    const supabase = createClient()
-    await supabase.from('projects').update({ phase: 'ship' }).eq('id', id)
-    router.push(`/dashboard/projects/${id}/ship`)
+    setAdvanceError('')
+    try {
+      const supabase = createClient()
+      const { error } = await supabase.from('projects').update({ phase: 'ship' }).eq('id', id)
+      if (error) throw error
+      router.push(`/dashboard/projects/${id}/ship`)
+    } catch {
+      setAdvanceError('Failed to advance phase. Please try again.')
+      setAdvancing(false)
+    }
   }
 
   if (loading || !project) {
@@ -388,7 +396,10 @@ export default function BuildPage() {
       </div>
 
       {/* CTA */}
-      <div className="flex justify-end">
+      <div className="flex flex-col items-end gap-2">
+        {advanceError && (
+          <p className="text-[#ef4444] text-xs">{advanceError}</p>
+        )}
         <button
           onClick={handleAdvance}
           disabled={advancing}
